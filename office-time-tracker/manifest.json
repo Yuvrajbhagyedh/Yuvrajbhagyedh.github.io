@@ -1,0 +1,10 @@
+{
+  "name": "Shift Desk",
+  "short_name": "Shift Desk",
+  "description": "Track your 9-hour office shift and flexible break chunks.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": []
+}
