@@ -1286,3 +1286,22 @@ html[data-theme="light"] .theme-toggle__icon--moon { display: block; }
 .pcard[data-cat="backend"] .case__meta::before { background: #f5a524; }
 .pcard[data-cat="web"] .case__meta::before { background: #3ddc84; }
 .pcard[data-cat="ml"] .case__meta::before { background: #e879f9; }
+
+/* ---------- night brick wall ---------- */
+html[data-theme="dark"] .atmosphere {
+  background-color: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='48' viewBox='0 0 96 48'%3E%3Cg fill='%23ffffff' fill-opacity='0.022' stroke='%23b5b5b5' stroke-opacity='0.09' stroke-width='1'%3E%3Crect x='1' y='1' width='46' height='22' rx='1.5'/%3E%3Crect x='49' y='1' width='46' height='22' rx='1.5'/%3E%3Crect x='-23' y='25' width='46' height='22' rx='1.5'/%3E%3Crect x='25' y='25' width='46' height='22' rx='1.5'/%3E%3Crect x='73' y='25' width='46' height='22' rx='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 96px 48px;
+}
+
+html[data-theme="dark"] .atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 30%, transparent 40%, rgba(5, 5, 5, 0.75));
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .contact { background: transparent; }
+html[data-theme="dark"] .hero__mesh { display: none; }
+html[data-theme="dark"] { background: #050505; }
