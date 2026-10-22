@@ -1382,8 +1382,8 @@ html[data-theme="dark"] { background: #050505; }
 .lamp-cta.is-lit .lamp-cta__main { color: var(--warm); }
 .lamp-cta.is-lit .lamp__bulb { fill: #fff3d6; filter: drop-shadow(0 0 6px var(--warm)) drop-shadow(0 0 14px var(--warm)); }
 .lamp-cta.is-lit .lamp__shade { fill: color-mix(in srgb, var(--warm) 25%, var(--bg-muted)); }
-.lamp-cta.is-lit .lamp__glow { opacity: 1; animation: lamp-flicker 0.7s steps(1) 1; }
-.lamp-cta.is-lit .lamp__bulb { animation: lamp-flicker 0.7s steps(1) 1; }
+.lamp-cta.is-lit .lamp__glow { opacity: 1; animation: lamp-flicker 1.1s steps(1) 1; }
+.lamp-cta.is-lit .lamp__bulb { animation: lamp-flicker 1.1s steps(1) 1; }
 .lamp-cta.is-lit .lamp-cta__small { color: var(--warm); }
 
 @keyframes lamp-flicker {
@@ -1414,4 +1414,56 @@ body.is-lamp-lit .atmosphere::before {
 
 @media (prefers-reduced-motion: reduce) {
   .lamp { animation: none; }
+}
+
+/* ---------- hire popover ---------- */
+.hire-pop {
+  position: fixed;
+  top: 84px;
+  right: var(--pad);
+  z-index: 950;
+  width: min(360px, calc(100vw - 32px));
+  padding: 1.4rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, #ffc061 45%, var(--line-strong));
+  background: var(--bg-elevated);
+  box-shadow: 0 30px 80px -30px rgba(255, 192, 97, 0.45), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+  transition: opacity 0.25s var(--ease), transform 0.3s var(--ease);
+}
+
+.hire-pop.is-open { opacity: 1; transform: none; }
+.hire-pop[hidden] { display: none; }
+
+.hire-pop__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.75rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--muted);
+  padding: 0.25rem;
+}
+.hire-pop__close:hover { color: var(--ink); }
+
+.hire-pop__eyebrow { color: #ffc061; margin-bottom: 0.5rem; }
+
+.hire-pop__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
+  padding-right: 1.5rem;
+}
+
+.hire-pop__text { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.1rem; }
+
+.hire-pop__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.hire-pop__actions .btn { padding: 0.7rem 1rem; font-size: 0.86rem; }
+
+@media (max-width: 860px) {
+  .hire-pop { top: 76px; right: 16px; }
 }

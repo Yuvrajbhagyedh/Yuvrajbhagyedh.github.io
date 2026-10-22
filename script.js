@@ -124,15 +124,51 @@
     });
   });
 
-  // Hanging lamp: off until someone hires me
-  document.querySelectorAll(".lamp-cta").forEach((cta) => {
+  // Hanging lamp: off until someone clicks, then offer ways to reach me
+  const lamps = document.querySelectorAll(".lamp-cta");
+  const pop = document.getElementById("hire-pop");
+  const LIGHT_UP_MS = reduceMotion ? 0 : 1300;
+  let lighting = false;
+
+  const openPop = () => {
+    if (!pop) return;
+    pop.hidden = false;
+    requestAnimationFrame(() => pop.classList.add("is-open"));
+    pop.querySelector(".btn")?.focus({ preventScroll: true });
+  };
+  const closePop = () => {
+    if (!pop || pop.hidden) return;
+    pop.classList.remove("is-open");
+    setTimeout(() => { pop.hidden = true; }, 250);
+  };
+
+  lamps.forEach((cta) => {
     cta.addEventListener("click", (e) => {
-      if (cta.classList.contains("is-lit")) return;
       e.preventDefault();
-      document.querySelectorAll(".lamp-cta").forEach((c) => c.classList.add("is-lit"));
+      if (lighting) return;
+      if (cta.classList.contains("is-lit")) { pop?.hidden ? openPop() : closePop(); return; }
+      lighting = true;
+      lamps.forEach((c) => c.classList.add("is-lit"));
       document.body.classList.add("is-lamp-lit");
-      setTimeout(() => { window.location.href = cta.href; }, reduceMotion ? 0 : 1100);
+      setTimeout(() => { lighting = false; openPop(); }, LIGHT_UP_MS);
     });
+  });
+
+  pop?.querySelector(".hire-pop__close")?.addEventListener("click", closePop);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePop(); });
+  document.addEventListener("click", (e) => {
+    if (pop && !pop.hidden && !pop.contains(e.target) && !e.target.closest(".lamp-cta")) closePop();
+  });
+
+  const copyBtn = document.getElementById("hire-copy");
+  copyBtn?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText("yuvrajbhagyedh@gmail.com");
+      copyBtn.textContent = "Copied ✓";
+    } catch (_) {
+      copyBtn.textContent = "yuvrajbhagyedh@gmail.com";
+    }
+    setTimeout(() => { copyBtn.textContent = "Copy email"; }, 2200);
   });
 
   // Card spotlight
