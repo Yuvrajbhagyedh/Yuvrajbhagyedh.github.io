@@ -36,7 +36,7 @@
   window.addEventListener("load", () => {
     const pre = document.getElementById("preloader");
     if (!pre) return;
-    setTimeout(() => pre.classList.add("is-done"), reduceMotion ? 0 : 650);
+    setTimeout(() => pre.classList.add("is-done"), reduceMotion ? 0 : 250);
   });
 
   // Scroll progress + nav state
@@ -124,6 +124,15 @@
     });
   });
 
+  // Card spotlight
+  document.querySelectorAll(".pcard, .case__body").forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    });
+  });
+
   // Magnetic buttons
   if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     document.querySelectorAll("[data-magnetic]").forEach((el) => {
@@ -151,7 +160,7 @@
     const navTime = document.getElementById("local-time");
     const heroTime = document.getElementById("local-time-hero");
     if (navTime) navTime.textContent = time;
-    if (heroTime) heroTime.textContent = `${time} IST`;
+    if (heroTime) heroTime.textContent = time;
   };
   tick();
   setInterval(tick, 30000);
