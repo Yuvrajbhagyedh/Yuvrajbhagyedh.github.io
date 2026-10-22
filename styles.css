@@ -21,7 +21,7 @@ html[data-theme="dark"] {
   --btn-primary-fg: #050505;
   --selection-bg: #ffffff;
   --selection-fg: #050505;
-  --shot-filter: grayscale(1) contrast(1.05);
+  --shot-filter: saturate(0.9) brightness(0.92);
   --nav-scrolled: rgba(5, 5, 5, 0.85);
   --mobile-nav-bg: rgba(5, 5, 5, 0.98);
 }
@@ -43,7 +43,7 @@ html[data-theme="light"] {
   --btn-primary-fg: #ffffff;
   --selection-bg: #0a0a0a;
   --selection-fg: #ffffff;
-  --shot-filter: grayscale(0.15) contrast(1.02);
+  --shot-filter: none;
   --nav-scrolled: rgba(244, 244, 244, 0.88);
   --mobile-nav-bg: rgba(244, 244, 244, 0.98);
 }
@@ -379,7 +379,7 @@ html[data-theme="light"] .theme-toggle__icon--moon { display: block; }
   right: -5%;
   width: min(55vw, 620px);
   height: min(55vw, 620px);
-  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--ink) 8%, transparent), transparent 68%);
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%);
   animation: beam 10s ease-in-out infinite alternate;
 }
 
@@ -430,6 +430,10 @@ html[data-theme="light"] .theme-toggle__icon--moon { display: block; }
   line-height: 0.92;
   letter-spacing: -0.055em;
   color: var(--ink);
+  background: linear-gradient(180deg, var(--ink) 35%, color-mix(in srgb, var(--ink) 55%, var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 1.5rem;
   max-width: 10ch;
 }
@@ -1180,3 +1184,105 @@ html[data-theme="light"] .theme-toggle__icon--moon { display: block; }
     animation: none;
   }
 }
+
+/* ---------- hero stats ---------- */
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  gap: 1.25rem 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  max-width: 560px;
+}
+
+.hero__stats dt { color: var(--muted); font-size: 0.64rem; margin-bottom: 0.3rem; }
+
+.hero__stats dd {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+@media (max-width: 520px) {
+  .hero__stats { grid-template-columns: repeat(2, auto); }
+}
+
+/* ---------- browser chrome on featured shots ---------- */
+.case__media[data-chrome] {
+  padding-top: 34px;
+  box-shadow: 0 30px 60px -35px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.chrome {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: var(--bg-muted);
+  border-bottom: 1px solid var(--line);
+  z-index: 1;
+}
+
+.chrome i {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.chrome i:nth-child(1) { background: #ff5f57; }
+.chrome i:nth-child(2) { background: #febc2e; }
+.chrome i:nth-child(3) { background: #28c840; }
+
+.chrome__url {
+  margin: 0 auto;
+  font-size: 0.62rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  padding: 0.2rem 0.9rem;
+  border-radius: 6px;
+  background: var(--bg);
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.case__media[data-chrome] .case__thumb { min-height: 300px; }
+
+/* ---------- spotlight ---------- */
+.pcard, .case__body { position: relative; }
+
+.pcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), var(--tint), transparent 70%);
+}
+
+.pcard:hover::before { opacity: 1; }
+.pcard > * { position: relative; }
+
+/* category dot */
+.pcard .case__meta::before {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  vertical-align: 1px;
+  background: var(--accent);
+}
+.pcard[data-cat="backend"] .case__meta::before { background: #f5a524; }
+.pcard[data-cat="web"] .case__meta::before { background: #3ddc84; }
+.pcard[data-cat="ml"] .case__meta::before { background: #e879f9; }
