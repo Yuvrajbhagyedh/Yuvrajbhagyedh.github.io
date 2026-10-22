@@ -1334,7 +1334,8 @@ html[data-theme="dark"] { background: #050505; }
   display: block;
   width: 34px;
   height: 30px;
-  transform-origin: 50% -26px;
+  top: 18px;
+  transform-origin: 50% -44px;
   animation: lamp-sway 4.5s ease-in-out infinite;
 }
 
@@ -1350,7 +1351,7 @@ html[data-theme="dark"] { background: #050505; }
   left: 50%;
   bottom: 25px;
   width: 1.5px;
-  height: 80px;
+  height: 100px;
   transform: translateX(-50%);
   background: var(--line-strong);
 }
@@ -1419,15 +1420,15 @@ body.is-lamp-lit .atmosphere::before {
 /* ---------- hire popover ---------- */
 .hire-pop {
   position: fixed;
-  top: 84px;
+  top: 108px;
   right: var(--pad);
   z-index: 950;
   width: min(360px, calc(100vw - 32px));
   padding: 1.4rem;
   border-radius: var(--radius);
-  border: 1px solid color-mix(in srgb, #ffc061 45%, var(--line-strong));
+  border: 1px solid var(--line);
   background: var(--bg-elevated);
-  box-shadow: 0 30px 80px -30px rgba(255, 192, 97, 0.45), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
   opacity: 0;
   transform: translateY(-10px) scale(0.98);
   transition: opacity 0.25s var(--ease), transform 0.3s var(--ease);
@@ -1447,7 +1448,7 @@ body.is-lamp-lit .atmosphere::before {
 }
 .hire-pop__close:hover { color: var(--ink); }
 
-.hire-pop__eyebrow { color: #ffc061; margin-bottom: 0.5rem; }
+.hire-pop__eyebrow { color: var(--muted); margin-bottom: 0.5rem; }
 
 .hire-pop__title {
   font-family: var(--font-display);
@@ -1465,5 +1466,5 @@ body.is-lamp-lit .atmosphere::before {
 .hire-pop__actions .btn { padding: 0.7rem 1rem; font-size: 0.86rem; }
 
 @media (max-width: 860px) {
-  .hire-pop { top: 76px; right: 16px; }
+  .hire-pop { top: 100px; right: 16px; }
 }
