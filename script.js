@@ -124,6 +124,17 @@
     });
   });
 
+  // Hanging lamp: off until someone hires me
+  document.querySelectorAll(".lamp-cta").forEach((cta) => {
+    cta.addEventListener("click", (e) => {
+      if (cta.classList.contains("is-lit")) return;
+      e.preventDefault();
+      document.querySelectorAll(".lamp-cta").forEach((c) => c.classList.add("is-lit"));
+      document.body.classList.add("is-lamp-lit");
+      setTimeout(() => { window.location.href = cta.href; }, reduceMotion ? 0 : 1100);
+    });
+  });
+
   // Card spotlight
   document.querySelectorAll(".pcard, .case__body").forEach((el) => {
     el.addEventListener("pointermove", (e) => {

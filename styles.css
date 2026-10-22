@@ -1305,3 +1305,113 @@ html[data-theme="dark"] body,
 html[data-theme="dark"] .contact { background: transparent; }
 html[data-theme="dark"] .hero__mesh { display: none; }
 html[data-theme="dark"] { background: #050505; }
+
+/* ---------- hanging lamp CTA ---------- */
+.lamp-cta {
+  --warm: #ffc061;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.3rem 0.2rem;
+  color: var(--ink);
+}
+
+.lamp-cta:hover .lamp-cta__main { text-decoration: underline; text-underline-offset: 4px; }
+
+.lamp-cta__text { display: flex; flex-direction: column; line-height: 1.15; }
+.lamp-cta__small { font-size: 0.58rem; color: var(--muted); }
+.lamp-cta__main {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.86rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.lamp {
+  position: relative;
+  display: block;
+  width: 34px;
+  height: 30px;
+  transform-origin: 50% -26px;
+  animation: lamp-sway 4.5s ease-in-out infinite;
+}
+
+.lamp-cta:hover .lamp { animation-duration: 1.6s; }
+
+@keyframes lamp-sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+.lamp__cord {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  width: 1.5px;
+  height: 80px;
+  transform: translateX(-50%);
+  background: var(--line-strong);
+}
+
+.lamp__svg { position: absolute; left: 0; bottom: 0; overflow: visible; }
+.lamp__shade { fill: var(--bg-muted); stroke: var(--line-strong); stroke-width: 1.2; }
+.lamp__cap { fill: var(--muted); }
+.lamp__bulb {
+  fill: color-mix(in srgb, var(--muted) 45%, var(--bg));
+  transition: fill 0.2s;
+}
+
+.lamp__glow {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  width: 260px;
+  height: 260px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse 45% 55% at 50% 0%, color-mix(in srgb, var(--warm) 45%, transparent), transparent 70%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  filter: blur(6px);
+  transition: opacity 0.4s;
+}
+
+/* lit */
+.lamp-cta.is-lit .lamp-cta__main { color: var(--warm); }
+.lamp-cta.is-lit .lamp__bulb { fill: #fff3d6; filter: drop-shadow(0 0 6px var(--warm)) drop-shadow(0 0 14px var(--warm)); }
+.lamp-cta.is-lit .lamp__shade { fill: color-mix(in srgb, var(--warm) 25%, var(--bg-muted)); }
+.lamp-cta.is-lit .lamp__glow { opacity: 1; animation: lamp-flicker 0.7s steps(1) 1; }
+.lamp-cta.is-lit .lamp__bulb { animation: lamp-flicker 0.7s steps(1) 1; }
+.lamp-cta.is-lit .lamp-cta__small { color: var(--warm); }
+
+@keyframes lamp-flicker {
+  0% { opacity: 0.2; } 15% { opacity: 1; } 25% { opacity: 0.3; }
+  40% { opacity: 1; } 50% { opacity: 0.5; } 60%, 100% { opacity: 1; }
+}
+
+body.is-lamp-lit .atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse 60% 55% at 88% 0%, rgba(255, 192, 97, 0.10), transparent 70%);
+  animation: rise 0.8s var(--ease) both;
+}
+
+/* compact (mobile): lamp only */
+.lamp-cta--compact { padding: 0.3rem 0.4rem; display: none; }
+.lamp-cta--compact .lamp-cta__text { display: none; }
+
+@media (max-width: 860px) {
+  .lamp-cta--compact { display: inline-flex; }
+}
+
+@media (max-width: 1080px) and (min-width: 861px) {
+  .lamp-cta__small { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp { animation: none; }
+}
