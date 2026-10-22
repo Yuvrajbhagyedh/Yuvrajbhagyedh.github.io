@@ -106,6 +106,24 @@
 
   document.querySelectorAll(".reveal-scroll").forEach((el) => observer.observe(el));
 
+  // Project filters
+  const filters = document.querySelectorAll(".filter");
+  const cards = document.querySelectorAll(".pcard");
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const f = btn.dataset.filter;
+      filters.forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", String(on));
+      });
+      cards.forEach((card) => {
+        card.hidden = f !== "all" && card.dataset.cat !== f;
+        if (!card.hidden) card.classList.add("is-visible");
+      });
+    });
+  });
+
   // Magnetic buttons
   if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     document.querySelectorAll("[data-magnetic]").forEach((el) => {
